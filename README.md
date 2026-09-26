@@ -1,8 +1,8 @@
 # PowerToys for LoupixDeck
 
-Control Microsoft PowerToys with shortcuts configured in PowerToys. This early Windows plugin requires Windows, Microsoft PowerToys and LoupixDeck.
+Control Microsoft PowerToys from [LoupixDeck](https://github.com/RadiatorTwo/LoupixDeck) using the shortcuts configured in PowerToys.
 
-v0.1 provides these actions:
+## Actions
 
 - Always On Top
 - Color Picker
@@ -13,10 +13,23 @@ v0.1 provides these actions:
 - Screen Ruler
 - Mouse Highlighter
 
-The plugin reads each current shortcut from PowerToys settings when its action runs, then sends it through LoupixDeck's keyboard command pipeline.
+## Requirements
 
-## Build and install
+- Windows with LoupixDeck and Microsoft PowerToys installed.
+- A LoupixDeck Plugin SDK compatible with version 1.26.0.
 
-Build with `dotnet build -c Release`. Copy `plugin.json`, `icon.png` and the output files from `bin/Release/` to LoupixDeck's `plugins/powertoys` directory, then restart or reload plugins. Do not copy `LoupixDeck.PluginSdk.dll`; the host supplies it.
+## Installation
 
-This is an early version and has no published release yet.
+No public release is available yet. For a local installation, build the plugin and follow [DEVELOPMENT.md](DEVELOPMENT.md).
+
+## Use
+
+Add a PowerToys action from the LoupixDeck command picker to a button. The plugin reads that action's current shortcut from PowerToys settings each time the button is pressed and sends it through LoupixDeck. Configure shortcuts in PowerToys first. A missing or invalid shortcut is reported in the plugin log.
+
+## Development
+
+Build, validation and release instructions are in [DEVELOPMENT.md](DEVELOPMENT.md).
+
+## License
+
+Plugin code is available under the MIT License. See [LICENSE](LICENSE). MDI icon attribution is in [Assets/Mdi/NOTICE.md](Assets/Mdi/NOTICE.md).
