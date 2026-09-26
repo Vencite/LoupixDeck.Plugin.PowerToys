@@ -2,9 +2,17 @@
 
 Control Microsoft PowerToys from [LoupixDeck](https://github.com/RadiatorTwo/LoupixDeck) using the shortcuts configured in PowerToys. Version 0.2.0 provides 22 actions.
 
+<p align="center">
+  <img src="images/deck-overview.png" alt="PowerToys actions on a LoupixDeck device" width="900">
+</p>
+
 ## Actions
 
 The command picker shows one `PowerToys` entry in Plugins, with these folders:
+
+<p align="center">
+  <img src="images/command-picker.png" alt="PowerToys folders and commands in the LoupixDeck command picker" width="760">
+</p>
 
 ### Clipboard
 
