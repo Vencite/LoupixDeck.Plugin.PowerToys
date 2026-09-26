@@ -41,7 +41,7 @@ The repository uses the reusable release workflow from `RadiatorTwo/LoupixDeck.P
 
 A manual `workflow_dispatch` run can validate packaging before publication. Publish a GitHub Release with tag `v<plugin.json version>` only after the package is checked on Windows. The release workflow produces the plugin ZIP, manifest, checksums and a `store-entry.json` artifact for a later Plugin Store update. Use that artifact's actual metadata rather than guessing a URL or checksum.
 
-The plugin has no published release yet. Publishing a release, pushing its tag or updating the Plugin Store requires an explicit request.
+Publishing a release, pushing its tag or updating the Plugin Store requires an explicit request.
 
 ## Sources of truth
 

@@ -11,3 +11,5 @@ permissions:
 jobs:
   release:
     uses: RadiatorTwo/LoupixDeck.PluginSdk/.github/workflows/plugin-release.yml@master
+    with:
+      build-sdk: false

@@ -58,7 +58,9 @@ The command picker shows one `PowerToys` entry in Plugins, with these folders:
 
 ## Installation
 
-No public release is available yet. For a local installation, build the plugin and follow [DEVELOPMENT.md](DEVELOPMENT.md).
+Download `powertoys-0.2.0-windows.zip` from the [GitHub Releases page](https://github.com/Vencite/LoupixDeck.Plugin.PowerToys/releases). In LoupixDeck, open the Plugins window and install the downloaded ZIP. Restart LoupixDeck if requested.
+
+The release package is built by the official LoupixDeck Plugin SDK workflow. For a local build, follow [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## Use
 
