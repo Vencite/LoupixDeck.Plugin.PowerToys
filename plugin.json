@@ -1,0 +1,12 @@
+{
+  "id": "powertoys",
+  "name": "PowerToys",
+  "version": "0.1.0",
+  "sdkVersion": "1.26.0",
+  "iconFile": "icon.png",
+  "entryAssembly": "LoupixDeck.Plugin.PowerToys.dll",
+  "platform": "Windows",
+  "author": "Vencite",
+  "description": "Control Microsoft PowerToys directly from LoupixDeck.",
+  "projectUrl": "https://github.com/Vencite/LoupixDeck.Plugin.PowerToys"
+}

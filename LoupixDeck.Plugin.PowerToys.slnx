@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="LoupixDeck.Plugin.PowerToys.csproj" />
+  <Project Path="tests/HotkeySmoke/HotkeySmoke.csproj" />
+</Solution>
