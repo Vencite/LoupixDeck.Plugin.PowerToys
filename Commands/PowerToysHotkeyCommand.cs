@@ -7,11 +7,11 @@ namespace LoupixDeck.Plugin.PowerToys.Commands;
 public sealed class PowerToysHotkeyCommand(PowerToysHotkeyDefinition definition) : IDisplayImageCommand
 {
     public PowerToysHotkeyDefinition Definition => definition;
-    private const string Clipboard = "PowerToys - Clipboard";
-    private const string WindowLayout = "PowerToys - Window & Layout";
-    private const string Mouse = "PowerToys - Mouse";
-    private const string Tools = "PowerToys - Tools";
-    private const string LaunchSearch = "PowerToys - Launch & Search";
+    private const string Clipboard = "Clipboard";
+    private const string WindowLayout = "Window & Layout";
+    private const string Mouse = "Mouse";
+    private const string Tools = "Tools";
+    private const string LaunchSearch = "Launch & Search";
     private readonly byte[] _icon = ReadIcon(definition.IconResource);
 
     public static IReadOnlyList<IPluginCommand> All { get; } =
@@ -46,8 +46,9 @@ public sealed class PowerToysHotkeyCommand(PowerToysHotkeyDefinition definition)
     {
         CommandName = definition.CommandId,
         DisplayName = definition.DisplayName,
-        Group = definition.Group,
-        Icon = definition.Icon
+        Group = "PowerToys",
+        Icon = definition.Icon,
+        HiddenFromMenu = true
     };
 
     public ButtonTargets SupportedTargets => ButtonTargets.TouchButton | ButtonTargets.SimpleButton;

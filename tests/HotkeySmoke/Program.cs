@@ -2,6 +2,7 @@ using System.Text.Json;
 using LoupixDeck.Plugin.PowerToys;
 using LoupixDeck.Plugin.PowerToys.Commands;
 using LoupixDeck.Plugin.PowerToys.PowerToys;
+using LoupixDeck.PluginSdk;
 
 Check("Win+Ctrl+C", """{"win":true,"ctrl":true,"alt":false,"shift":false,"code":67,"key":""}""");
 Check("Win+Shift+T", """{"win":true,"ctrl":false,"alt":false,"shift":true,"code":84,"key":""}""");
@@ -19,7 +20,8 @@ if (PowerToysHotkey.TryParse(JsonDocument.Parse("""{"win":true,"ctrl":false,"alt
     throw new Exception("A hotkey with a nonnumeric code must be rejected.");
 
 var commands = PowerToysHotkeyCommand.All.Cast<PowerToysHotkeyCommand>().ToArray();
-var groups = new PowerToysPlugin().GetCommandGroups().Select(group => group.Group).ToHashSet();
+var plugin = new PowerToysPlugin();
+var groups = plugin.GetCommandGroups();
 var legacyIds = new[]
 {
     "PowerToys.AlwaysOnTop.Toggle", "PowerToys.ColorPicker.Activate", "PowerToys.FancyZones.Editor",
@@ -28,8 +30,18 @@ var legacyIds = new[]
 };
 if (commands.Length != 22 || commands.Select(command => command.Descriptor.CommandName).Distinct().Count() != 22 ||
     legacyIds.Any(id => commands.All(command => command.Descriptor.CommandName != id)) ||
-    commands.Any(command => !groups.Contains(command.Descriptor.Group)))
+    groups.Count != 1 || groups[0].Group != "PowerToys" ||
+    commands.Any(command => command.Descriptor.Group != "PowerToys" || !command.Descriptor.HiddenFromMenu))
     throw new Exception("Command count, IDs or group descriptors are invalid.");
+
+var menu = await plugin.GetMenuNodes(ButtonTargets.TouchButton);
+var expectedFolders = new[] { "Clipboard", "Window & Layout", "Mouse", "Tools", "Launch & Search" };
+if (menu.Count != 1 || menu[0].Name != "PowerToys" ||
+    !menu[0].Children.Select(folder => folder.Name).SequenceEqual(expectedFolders) ||
+    !menu[0].Children.SelectMany(folder => folder.Children).Select(leaf => leaf.CommandName)
+        .SequenceEqual(commands.Select(command => command.Descriptor.CommandName)) ||
+    (await plugin.GetMenuNodes(ButtonTargets.RotaryEncoder)).Count != 0)
+    throw new Exception("PowerToys menu folders or command leaves are invalid.");
 
 foreach (var icon in commands.Select(command => command.Definition.IconResource).Distinct())
 {

@@ -4,14 +4,16 @@ Control Microsoft PowerToys from [LoupixDeck](https://github.com/RadiatorTwo/Lou
 
 ## Actions
 
-### PowerToys - Clipboard
+The command picker shows one `PowerToys` entry in Plugins, with these folders:
+
+### Clipboard
 
 - Advanced Paste
 - Paste as Plain Text
 - Paste as Markdown
 - Paste as JSON
 
-### PowerToys - Window & Layout
+### Window & Layout
 
 - Always On Top
 - Increase Opacity
@@ -22,21 +24,21 @@ Control Microsoft PowerToys from [LoupixDeck](https://github.com/RadiatorTwo/Lou
 - Crop and Lock Screenshot
 - Workspaces
 
-### PowerToys - Mouse
+### Mouse
 
 - Mouse Highlighter
 - Mouse Jump
 - Mouse Pointer Crosshairs
 - Cursor Wrap
 
-### PowerToys - Tools
+### Tools
 
 - Color Picker
 - Text Extractor
 - Screen Ruler
 - Peek
 
-### PowerToys - Launch & Search
+### Launch & Search
 
 - PowerToys Run
 - Shortcut Guide
