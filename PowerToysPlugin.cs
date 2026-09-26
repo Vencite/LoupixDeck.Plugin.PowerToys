@@ -10,7 +10,7 @@ public sealed class PowerToysPlugin : LoupixPlugin
     {
         Id = "powertoys",
         Name = "PowerToys",
-        Version = new Version(0, 1, 0),
+        Version = new Version(0, 2, 0),
         SdkVersion = SdkInfo.Version,
         Author = "Vencite",
         Description = "Control Microsoft PowerToys directly from LoupixDeck.",
@@ -20,7 +20,13 @@ public sealed class PowerToysPlugin : LoupixPlugin
     public override IEnumerable<IPluginCommand> GetCommands() => PowerToysHotkeyCommand.All;
 
     public override IReadOnlyList<CommandGroupDescriptor> GetCommandGroups() =>
-    [new() { Group = "PowerToys", Description = "Microsoft PowerToys shortcuts", Icon = "\U000F05A9" }];
+    [
+        new() { Group = "PowerToys - Clipboard", Description = "Paste and transform clipboard content", Icon = "\U000F0192" },
+        new() { Group = "PowerToys - Window & Layout", Description = "Arrange and capture windows", Icon = "\U000F0F8D" },
+        new() { Group = "PowerToys - Mouse", Description = "Mouse and pointer tools", Icon = "\U000F037D" },
+        new() { Group = "PowerToys - Tools", Description = "Screen and text tools", Icon = "\U000F020A" },
+        new() { Group = "PowerToys - Launch & Search", Description = "Launch utilities and find commands", Icon = "\U000F0349" }
+    ];
 
     private static byte[] LoadEmbeddedIcon()
     {
