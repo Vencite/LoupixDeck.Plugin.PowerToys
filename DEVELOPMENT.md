@@ -19,7 +19,7 @@ dotnet run --project tests/HotkeySmoke/HotkeySmoke.csproj -c Release
 git diff --check
 ```
 
-The smoke check covers PowerToys hotkey parsing, key conversion and embedded action icons. Runtime behavior requires Windows, LoupixDeck and PowerToys.
+The smoke check covers PowerToys hotkey parsing, key conversion, command/menu descriptors and the plain-action shape (no custom rendering). Runtime behavior requires Windows, LoupixDeck and PowerToys.
 
 LoupixDeck provides `LoupixDeck.PluginSdk.dll` at runtime. Do not package a private copy.
 

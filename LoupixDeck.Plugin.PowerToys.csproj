@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="icon.png" LogicalName="LoupixDeck.Plugin.PowerToys.icon.png" />
-    <EmbeddedResource Include="Assets/Mdi/*.png" LogicalName="LoupixDeck.Plugin.PowerToys.Assets.Mdi.%(Filename)%(Extension)" />
     <None Update="icon.png" CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="LoupixDeck.PluginSdk" Version="1.26.0">
       <ExcludeAssets>runtime</ExcludeAssets>

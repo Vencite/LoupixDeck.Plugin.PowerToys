@@ -8,21 +8,16 @@ Control Microsoft PowerToys from [LoupixDeck](https://github.com/RadiatorTwo/Lou
 
 ## Actions
 
-The command picker shows one `PowerToys` entry in Plugins, with these folders:
+The command picker shows 22 `PowerToys` actions in Plugins, each with its own icon:
 
 <p align="center">
-  <img src="images/command-picker.png" alt="PowerToys folders and commands in the LoupixDeck command picker" width="760">
+  <img src="images/command-picker.png" alt="PowerToys actions in the LoupixDeck command picker" width="760">
 </p>
-
-### Clipboard
 
 - Advanced Paste
 - Paste as Plain Text
 - Paste as Markdown
 - Paste as JSON
-
-### Window & Layout
-
 - Always On Top
 - Increase Opacity
 - Decrease Opacity
@@ -31,23 +26,14 @@ The command picker shows one `PowerToys` entry in Plugins, with these folders:
 - Crop and Lock Reparent
 - Crop and Lock Screenshot
 - Workspaces
-
-### Mouse
-
 - Mouse Highlighter
 - Mouse Jump
 - Mouse Pointer Crosshairs
 - Cursor Wrap
-
-### Tools
-
 - Color Picker
 - Text Extractor
 - Screen Ruler
 - Peek
-
-### Launch & Search
-
 - PowerToys Run
 - Shortcut Guide
 

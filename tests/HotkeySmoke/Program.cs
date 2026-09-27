@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 using LoupixDeck.Plugin.PowerToys;
 using LoupixDeck.Plugin.PowerToys.Commands;
@@ -31,25 +32,23 @@ var legacyIds = new[]
 if (commands.Length != 22 || commands.Select(command => command.Descriptor.CommandName).Distinct().Count() != 22 ||
     legacyIds.Any(id => commands.All(command => command.Descriptor.CommandName != id)) ||
     groups.Count != 1 || groups[0].Group != "PowerToys" ||
-    commands.Any(command => command.Descriptor.Group != "PowerToys" || !command.Descriptor.HiddenFromMenu))
+    commands.Any(command => command.Descriptor.Group != "PowerToys" || command.Descriptor.HiddenFromMenu))
     throw new Exception("Command count, IDs or group descriptors are invalid.");
 
-var menu = await plugin.GetMenuNodes(ButtonTargets.TouchButton);
-var expectedFolders = new[] { "Clipboard", "Window & Layout", "Mouse", "Tools", "Launch & Search" };
-if (menu.Count != 1 || menu[0].Name != "PowerToys" ||
-    !menu[0].Children.Select(folder => folder.Name).SequenceEqual(expectedFolders) ||
-    !menu[0].Children.SelectMany(folder => folder.Children).Select(leaf => leaf.CommandName)
-        .SequenceEqual(commands.Select(command => command.Descriptor.CommandName)) ||
-    (await plugin.GetMenuNodes(ButtonTargets.RotaryEncoder)).Count != 0)
-    throw new Exception("PowerToys menu folders or command leaves are invalid.");
+if (((object)plugin).GetType().GetInterfaces().Any(type => type == typeof(IMenuContributor)))
+    throw new Exception("PowerToys must not use a dynamic menu; plain leaves carry Descriptor.Icon.");
 
-foreach (var icon in commands.Select(command => command.Definition.IconResource).Distinct())
+foreach (var icon in commands.Select(command => command.Descriptor.Icon).Distinct())
 {
-    var resource = $"LoupixDeck.Plugin.PowerToys.Assets.Mdi.{icon}.png";
-    using var stream = typeof(PowerToysHotkey).Assembly.GetManifestResourceStream(resource);
-    if (stream is null || stream.Length == 0)
-        throw new Exception($"Missing embedded icon: {icon}.");
+    if (string.IsNullOrEmpty(icon) || StringInfo.GetTextElementEnumerator(icon).MoveNext() is false)
+        throw new Exception("Missing command icon.");
 }
+if (commands.Cast<IPluginCommand>().Any(command => command is IDisplayImageCommand))
+    throw new Exception("PowerToys commands must not implement IDisplayImageCommand.");
+if (commands.Any(command =>
+        command is not PowerToysHotkeyCommand ||
+        (command.SupportedTargets & ButtonTargets.TouchButton) == 0))
+    throw new Exception("PowerToys commands must be plain actions supporting touch buttons.");
 
 var root = Path.Combine(Path.GetTempPath(), "powertoys-smoke-" + Guid.NewGuid());
 Directory.CreateDirectory(root);
