@@ -4,7 +4,7 @@ using LoupixDeck.PluginSdk;
 
 namespace LoupixDeck.Plugin.PowerToys;
 
-public sealed class PowerToysPlugin : LoupixPlugin
+public sealed class PowerToysPlugin : LoupixPlugin, IMenuContributor
 {
     public override PluginMetadata Metadata { get; } = new()
     {
@@ -21,12 +21,29 @@ public sealed class PowerToysPlugin : LoupixPlugin
 
     public override IReadOnlyList<CommandGroupDescriptor> GetCommandGroups() =>
     [
-        new() { Group = "PowerToys - Clipboard", Description = "Paste and transform clipboard content", Icon = "\U000F0192" },
-        new() { Group = "PowerToys - Window & Layout", Description = "Arrange and capture windows", Icon = "\U000F0F8D" },
-        new() { Group = "PowerToys - Mouse", Description = "Mouse and pointer tools", Icon = "\U000F037D" },
-        new() { Group = "PowerToys - Tools", Description = "Screen and text tools", Icon = "\U000F020A" },
-        new() { Group = "PowerToys - Launch & Search", Description = "Launch utilities and find commands", Icon = "\U000F0349" }
+        new() { Group = "PowerToys", Description = "Microsoft PowerToys shortcuts", Icon = "\U000F05A9" }
     ];
+
+    public Task<IReadOnlyList<MenuNode>> GetMenuNodes(ButtonTargets target)
+    {
+        if ((target & (ButtonTargets.TouchButton | ButtonTargets.SimpleButton)) == 0)
+            return Task.FromResult<IReadOnlyList<MenuNode>>([]);
+
+        var folders = PowerToysHotkeyCommand.All.Cast<PowerToysHotkeyCommand>()
+            .GroupBy(command => command.Definition.Group)
+            .Select(group => new MenuNode
+            {
+                Name = group.Key,
+                Children = group.Select(command => new MenuNode
+                {
+                    Name = command.Descriptor.DisplayName,
+                    CommandName = command.Descriptor.CommandName
+                }).ToArray()
+            }).ToArray();
+
+        return Task.FromResult<IReadOnlyList<MenuNode>>(
+            [new MenuNode { Name = "PowerToys", Children = folders }]);
+    }
 
     private static byte[] LoadEmbeddedIcon()
     {

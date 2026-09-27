@@ -3,7 +3,7 @@ using System.Text.Json;
 namespace LoupixDeck.Plugin.PowerToys.PowerToys;
 
 public sealed record PowerToysHotkeyDefinition(
-    string CommandId, string DisplayName, string Module, string[] PropertyPath, string Icon);
+    string CommandId, string DisplayName, string Group, string Module, string[] PropertyPath, string Icon);
 
 public static class PowerToysSettingsReader
 {

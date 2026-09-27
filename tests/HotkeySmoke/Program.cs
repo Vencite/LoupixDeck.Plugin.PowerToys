@@ -32,11 +32,17 @@ var legacyIds = new[]
 if (commands.Length != 22 || commands.Select(command => command.Descriptor.CommandName).Distinct().Count() != 22 ||
     legacyIds.Any(id => commands.All(command => command.Descriptor.CommandName != id)) ||
     groups.Count != 1 || groups[0].Group != "PowerToys" ||
-    commands.Any(command => command.Descriptor.Group != "PowerToys" || command.Descriptor.HiddenFromMenu))
+    commands.Any(command => command.Descriptor.Group != "PowerToys" || !command.Descriptor.HiddenFromMenu))
     throw new Exception("Command count, IDs or group descriptors are invalid.");
 
-if (((object)plugin).GetType().GetInterfaces().Any(type => type == typeof(IMenuContributor)))
-    throw new Exception("PowerToys must not use a dynamic menu; plain leaves carry Descriptor.Icon.");
+if (!((object)plugin).GetType().GetInterfaces().Any(type => type == typeof(IMenuContributor)))
+    throw new Exception("PowerToys must expose its nested command menu.");
+
+var menu = plugin.GetMenuNodes(ButtonTargets.TouchButton).GetAwaiter().GetResult();
+if (menu.Count != 1 || menu[0].Name != "PowerToys" ||
+    menu[0].Children.Select(node => node.Name).ToHashSet().SetEquals([
+        "Clipboard", "Window & Layout", "Mouse", "Tools", "Launch & Search"]) is false)
+    throw new Exception("PowerToys menu folders are invalid.");
 
 foreach (var icon in commands.Select(command => command.Descriptor.Icon).Distinct())
 {
