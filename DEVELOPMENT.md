@@ -14,7 +14,7 @@ The plugin targets `net10.0`.
 
 ```bash
 dotnet restore
-dotnet build -c Release --no-restore
+dotnet build -c Release --no-restore -m:1
 dotnet run --project tests/HotkeySmoke/HotkeySmoke.csproj -c Release
 git diff --check
 ```
