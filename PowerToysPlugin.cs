@@ -10,7 +10,7 @@ public sealed class PowerToysPlugin : LoupixPlugin, IMenuContributor
     {
         Id = "powertoys",
         Name = "PowerToys",
-        Version = new Version(0, 2, 0),
+        Version = new Version(0, 2, 1),
         SdkVersion = SdkInfo.Version,
         Author = "Vencite",
         Description = "Control Microsoft PowerToys directly from LoupixDeck.",
